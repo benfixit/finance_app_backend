@@ -1,15 +1,18 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const schema = require('./schema');
+const graphqlHttp = require('express-graphql');
 
-mongoose.connect('mongodb://localhost/finance_app', { useNewUrlParser: true })
+mongoose.connect('mongodb://localhost/finance_app', { useNewUrlParser: true, useUnifiedTopology: true })
         .then(() => console.log('We are connected!'))
-        .catch(error => console.log('Error connecting to the database'))
+        .catch(error => console.log(error))
 
 const app = express();
 
-app.use('/hello', function(req, res){
-    res.send('Hello World!')
-})
+app.use('/graphql', graphqlHttp({
+    schema,
+    graphiql: true
+}))
 
 app.set('PORT', 4000)
 
