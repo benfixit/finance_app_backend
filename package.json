@@ -7,7 +7,9 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "lint": "eslint --ext .js src/",
+    "lint:fix": "eslint --ext .js src/ --fix"
   },
   "dependencies": {
     "express": "^4.17.1",
@@ -16,6 +18,12 @@
     "mongoose": "^5.7.4"
   },
   "devDependencies": {
-    "nodemon": "^1.19.3"
+    "eslint": "^6.5.1",
+    "eslint-config-prettier": "^6.4.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "husky": "^3.0.9",
+    "nodemon": "^1.19.3",
+    "prettier": "^1.18.2",
+    "pretty-quick": "^2.0.0"
   }
 }
