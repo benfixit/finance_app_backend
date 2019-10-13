@@ -1,0 +1,21 @@
+{
+  "name": "finance_app",
+  "version": "1.0.0",
+  "description": "Tracker for financial budgets and transactions",
+  "main": "index.js",
+  "author": "Inya Chukwuemeka",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-graphql": "^0.9.0",
+    "graphql": "^14.5.8",
+    "mongoose": "^5.7.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.3"
+  }
+}
