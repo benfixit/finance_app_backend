@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const graphqlHttp = require('express-graphql');
+const cors = require('cors');
 const schema = require('./src/schema');
 
 mongoose
@@ -12,6 +13,8 @@ mongoose
   .catch(error => console.log(error));
 
 const app = express();
+
+app.use(cors());
 
 app.use(
   '/graphql',

@@ -15,7 +15,8 @@ const CategoryType = new GraphQLObjectType({
   name: 'Category',
   fields: {
     _id: { type: GraphQLString },
-    title: { type: GraphQLString }
+    title: { type: GraphQLString },
+    createdAt: { type: GraphQLString }
   }
 });
 
@@ -25,7 +26,11 @@ const TransactionType = new GraphQLObjectType({
     _id: { type: GraphQLString },
     description: { type: GraphQLString },
     amount: { type: GraphQLInt },
-    category: { type: CategoryType }
+    category: { type: CategoryType },
+    year: { type: GraphQLInt },
+    month: { type: GraphQLInt },
+    day: { type: GraphQLInt },
+    createdAt: { type: GraphQLString }
   }
 });
 
@@ -34,7 +39,11 @@ const BudgetType = new GraphQLObjectType({
   fields: {
     _id: { type: GraphQLString },
     amount: { type: GraphQLString },
-    category: { type: CategoryType }
+    category: { type: CategoryType },
+    year: { type: GraphQLInt },
+    month: { type: GraphQLInt },
+    day: { type: GraphQLInt },
+    createdAt: { type: GraphQLString }
   }
 });
 
@@ -60,7 +69,9 @@ const schema = new GraphQLSchema({
       transactions: {
         type: GraphQLList(TransactionType),
         args: {
-          month: { type: GraphQLInt }
+          year: { type: GraphQLInt },
+          month: { type: GraphQLInt },
+          day: { type: GraphQLInt }
         },
         resolve: (root, args) => {
           return Transaction.find(args)
@@ -70,8 +81,15 @@ const schema = new GraphQLSchema({
       },
       budgets: {
         type: GraphQLList(BudgetType),
-        resolve: () => {
-          return Budget.find().exec();
+        args: {
+          year: { type: GraphQLInt },
+          month: { type: GraphQLInt },
+          day: { type: GraphQLInt }
+        },
+        resolve: (root, args) => {
+          return Budget.find(args)
+            .populate('category')
+            .exec();
         }
       }
     }
